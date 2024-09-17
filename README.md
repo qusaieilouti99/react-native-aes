@@ -83,7 +83,7 @@ protected List<ReactPackage> getPackages() {
 import { NativeModules, Platform } from 'react-native'
 import Aes from 'react-native-aes-crypto'
 
-const generateKey = (password, salt, cost, length) => Aes.pbkdf2(password, salt, cost, length, 'sha256')
+const generateKey = (password, salt, cost, length) => Aes.pbkdf2(password, salt, cost, length)
 
 const encryptData = (text, key) => {
     return Aes.randomKey(16).then(iv => {
@@ -142,7 +142,7 @@ async function asyncDecrypt(cipher, key, iv) {
 
 -   `encrypt(text, key, iv, algorithm)`
 -   `decrypt(base64, key, iv, algorithm)`
--   `pbkdf2(text, salt, cost, length, algorithm)`
+-   `pbkdf2(text, salt, cost, length)`
 -   `hmac256(cipher, key)`
 -   `hmac512(cipher, key)`
 -   `sha1(text)`

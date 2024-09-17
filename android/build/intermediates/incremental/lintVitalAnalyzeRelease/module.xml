@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="C:\Users\Qusai\WebstormProjects\Chat\node_modules\react-native-aes-crypto\android"
+    name=":react-native-aes-crypto"
+    type="LIBRARY"
+    maven="PingMe:react-native-aes-crypto:unspecified"
+    agpVersion="8.4.0"
+    buildFolder="build"
+    bootClassPath="C:\Users\Qusai\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\Qusai\AppData\Local\Android\Sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

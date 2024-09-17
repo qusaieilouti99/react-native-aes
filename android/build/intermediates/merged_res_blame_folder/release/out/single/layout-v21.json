@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/layout-v21/notification_action.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-core-1.9.0-2:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-core-1.9.0-2:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-core-1.9.0-2:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-core-1.9.0-2:/layout-v21/notification_template_custom_big.xml"
+    }
+]

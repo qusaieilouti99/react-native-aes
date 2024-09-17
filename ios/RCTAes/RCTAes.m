@@ -17,9 +17,14 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(encrypt:(NSString *)data key:(NSString *)key iv:(NSString *)iv algorithm:(NSString *)algorithm
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
+    if (!data || !key || !iv || !algorithm) {
+        reject(@"encrypt_fail", @"Invalid input", nil);
+        return;
+    }
+    
     NSError *error = nil;
     NSString *base64 = [AesCrypt encrypt:data key:key iv:iv algorithm:algorithm];
-    if (base64 == nil) {
+    if (!base64) {
         reject(@"encrypt_fail", @"Encrypt error", error);
     } else {
         resolve(base64);
@@ -29,26 +34,26 @@ RCT_EXPORT_METHOD(encrypt:(NSString *)data key:(NSString *)key iv:(NSString *)iv
 RCT_EXPORT_METHOD(decrypt:(NSString *)base64 key:(NSString *)key iv:(NSString *)iv algorithm:(NSString *)algorithm
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
+    if (!base64 || !key || !iv || !algorithm) {
+        reject(@"decrypt_fail", @"Invalid input", nil);
+        return;
+    }
+    
     NSError *error = nil;
     NSString *data = [AesCrypt decrypt:base64 key:key iv:iv algorithm:algorithm];
-    if (data == nil) {
+    if (!data) {
         reject(@"decrypt_fail", @"Decrypt failed", error);
     } else {
         resolve(data);
     }
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(pbkdf2Sync:(NSString *)password salt:(NSString *)salt
-                                       cost:(NSInteger)cost length:(NSInteger)length algorithm:(NSString *)algorithm) {
-    return [AesCrypt pbkdf2:password salt:salt cost:cost length:length algorithm:algorithm];;
-}
-
 RCT_EXPORT_METHOD(pbkdf2:(NSString *)password salt:(NSString *)salt
-                  cost:(NSInteger)cost length:(NSInteger)length algorithm:(NSString *)algorithm
+                  cost:(NSInteger)cost length:(NSInteger)length
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     NSError *error = nil;
-    NSString *data = [AesCrypt pbkdf2:password salt:salt cost:cost length:length algorithm:algorithm];
+    NSString *data = [AesCrypt pbkdf2:password salt:salt cost:cost length:length];
     if (data == nil) {
         reject(@"keygen_fail", @"Key generation failed", error);
     } else {
@@ -138,5 +143,60 @@ RCT_EXPORT_METHOD(randomKey:(NSInteger)length
         resolve(data);
     }
 }
+
+RCT_EXPORT_METHOD(encryptFile:(NSString *)hexKey iv:(NSString *)hexIv hmacKey:(NSString *)hmacKey inputPath:(NSString *)inputPath outputPath:(NSString *)outputPath
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSDictionary *result = [AesCrypt encryptFile:hexKey iv:hexIv hmacKey:hmacKey inputPath:inputPath outputPath:outputPath];
+    
+    if (result) {
+        NSString *auth = result[@"auth"];
+        NSNumber *paddingSize = result[@"paddingSize"];
+        
+        // Validate auth and paddingSize
+        if (auth && paddingSize) {
+            NSLog(@"Encryption successful. Auth: %@, Padding Size: %@", auth, paddingSize);
+            resolve(result);
+        } else {
+            NSError *error = [NSError errorWithDomain:@"com.yourdomain.app" code:500 userInfo:@{ NSLocalizedDescriptionKey: @"Invalid encryption result." }];
+            reject(@"encryption_error", @"Invalid encryption result.", error);
+        }
+    } else {
+        NSError *error = [NSError errorWithDomain:@"com.yourdomain.app" code:404 userInfo:@{ NSLocalizedDescriptionKey: @"Failed to encrypt file." }];
+        reject(@"encryption_error", @"Failed to encrypt file.", error);
+    }
+}
+
+
+//RCT_EXPORT_METHOD(decryptFile:(NSString *)hexKey iv:(NSString *)hexIv hmacKey:(NSString *)hmacKey digest:(NSString *)digest inputPath:(NSString *)inputPath outputPath:(NSString *)outputPath)
+//{
+//    [AesCrypt decryptFile:hexKey iv:hexIv hmacKey:hmacKey digest:digest inputPath:inputPath outputPath:outputPath];
+//}
+
+RCT_REMAP_METHOD(decryptFile,
+                 hexKey:(NSString *)hexKey
+                 iv:(NSString *)hexIv
+                 hmacKey:(NSString *)hmacKey
+                 digest:(NSString *)digest
+                 inputPath:(NSString *)inputPath
+                 outputPath:(NSString *)outputPath
+                 paddingSize:(NSUInteger)paddingSize
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+#ifdef DEBUG
+    NSLog(@"[RNModule][decryptFile]");
+#endif
+    [AesCrypt decryptFile:hexKey iv:hexIv hmacKey:hmacKey digest:digest inputPath:inputPath outputPath:outputPath paddingSize:paddingSize completion:^(NSString *result) {
+                NSError *error = nil;
+                if ([result  isEqual: @"Success"]) {
+                    resolve(result);
+                } else {
+                    reject(@"random_fail",result, error);
+                }
+            }];
+}
+
 
 @end

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/abc_list_divider_material.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-appcompat-1.6.1-14:/drawable-v21/abc_list_divider_material.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/abc_btn_colored_material.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-appcompat-1.6.1-14:/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-appcompat-1.6.1-14:/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/notification_action_background.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-core-1.9.0-2:/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/abc_dialog_material_background.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-appcompat-1.6.1-14:/drawable-v21/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "com.tectiv3.aes.react-native-aes-crypto-merged_res-24:/drawable-v21/abc_edit_text_material.xml",
+        "source": "com.tectiv3.aes.react-native-aes-crypto-appcompat-1.6.1-14:/drawable-v21/abc_edit_text_material.xml"
+    }
+]
